@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ListViewApp</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="listaTitulos">
+        <item>Titulo 1</item>
+        <item>Titulo 2</item>
+        <item>Titulo 3</item>
+        <item>Titulo 4</item>
+        <item>Titulo 5</item>
+        <item>Titulo 6</item>
+        <item>Titulo 7</item>
+        <item>Titulo 8</item>
+        <item>Titulo 9</item>
+        <item>Titulo 10</item>
+    </string-array>
+    <string-array name="LugarTitulos">
+        <item>Lugar Titulo 1</item>
+        <item>Lugar Titulo 2</item>
+        <item>Lugar Titulo 3</item>
+        <item>Lugar Titulo 4</item>
+        <item>Titulo 5</item>
+        <item>Titulo 6</item>
+        <item>Titulo 7</item>
+        <item>Titulo 8</item>
+        <item>Titulo 9</item>
+        <item>Titulo 10</item>
+    </string-array>
+
+</resources>
