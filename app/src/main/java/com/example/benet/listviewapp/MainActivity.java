@@ -1,30 +1,38 @@
 package com.example.benet.listviewapp;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.benet.listviewapp.Adapters.MyListAdapter;
+import com.example.benet.listviewapp.activity.DetailActivity;
 import com.example.benet.listviewapp.model.Contenido;
+
+import junit.framework.Assert;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener, AbsListView.MultiChoiceModeListener {
 
     private List<Contenido> data;
-
-
+    public static String sendItem="sendItem";
+    private ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,26 +40,38 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         createDateModel();
 
-        ListView listView=(ListView)findViewById(R.id.listView);
+        listView=(ListView)findViewById(R.id.listView);
         MyListAdapter adapter=new MyListAdapter(this, data, R.layout.list_item);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(this);
 
+        ///
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        listView.setMultiChoiceModeListener(this);
+        ///
     }
 
     public void createDateModel(){
         data=new ArrayList<Contenido>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        Date convertedDate = new Date();
+        String [] titles=this.getResources().getStringArray(R.array.listaTitulos);
+        String [] locates=this.getResources().getStringArray(R.array.LugarTitulos);
+        String [] fechas=this.getResources().getStringArray(R.array.fechas);
+        String [] desc=this.getResources().getStringArray(R.array.descripciones);
         for(int i=0; i<10; i++){
-            Calendar fecha=new GregorianCalendar();//La fecha actual
-            SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy/MM/dd");
-            java.util.Date utilDate=null;
             try {
-                utilDate = formatoDeFecha.parse(fecha.get(Calendar.YEAR)+"/"+fecha.get(Calendar.MONTH)+1+"/"+fecha.get(Calendar.DAY_OF_MONTH));
+                convertedDate = dateFormat.parse(fechas[i]);
             } catch (ParseException e) {
+                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            Contenido a=new Contenido("Titulo "+(i+1),"Lugar del titulo "+(i+1),utilDate,R.drawable.ic_launcher);
+            Contenido a=new Contenido(titles[i],
+                                      desc[i],
+                                      locates[i],
+                                      convertedDate,
+                                      R.drawable.ic_launcher);
             data.add(a);
         }
 
@@ -69,20 +89,68 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                Toast.makeText(this,this.getResources().getString(R.string.action_settings),Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.action_help:
+                Toast.makeText(this,this.getResources().getString(R.string.action_help),Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.actions_plus:
+                Toast.makeText(this,this.getResources().getString(R.string.action_plus),Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
+
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            Toast.makeText(this,data.get(position).getTitulo(), Toast.LENGTH_LONG).show();
+            Intent intent=new Intent(this, DetailActivity.class);
+            intent.putExtra(sendItem,data.get(position));
+            startActivity(intent);
+    }
+
+    @Override
+    public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+        Contenido item=(Contenido)listView.getItemAtPosition(position);
+        mode.setTitle(item.getTitulo());
+    }
+
+    @Override
+    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+        mode.getMenuInflater().inflate(R.menu.context_listview_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+        return false;
+    }
+
+    @Override
+    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+
+        switch(item.getItemId()){
+            case R.id.action_edit:
+                Toast.makeText(this,item.getTitle().toString()+" "+mode.getTitle(), Toast.LENGTH_SHORT).show();
+                mode.finish();
+                return true;
+            case R.id.action_delete:
+                Toast.makeText(this,item.getTitle().toString()+" "+mode.getTitle(), Toast.LENGTH_SHORT).show();
+                mode.finish();
+                return true;
+            default:
+                return false;
+        }
+
+    }
+
+    @Override
+    public void onDestroyActionMode(ActionMode mode) {
 
     }
 }

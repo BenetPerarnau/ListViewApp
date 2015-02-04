@@ -56,11 +56,15 @@ Se llama a este método cada vez que se necesita mostrar un item de la lista en 
 
         ImageView img=(ImageView)convertView.findViewById(R.id.item_img);
         TextView title=(TextView)convertView.findViewById(R.id.item_title);
-        TextView subtitle=(TextView)convertView.findViewById(R.id.item_lugar_fecha);
+        TextView lugar=(TextView)convertView.findViewById(R.id.item_lugar);
+        TextView fecha=(TextView)convertView.findViewById(R.id.item_fecha);
 
         img.setImageResource(data.get(position).getImg());
         title.setText(data.get(position).getTitulo());
-        subtitle.setText(data.get(position).getLugar()+"\t"+data.get(position).getFecha());
+        lugar.setText(data.get(position).getLugar());
+        fecha.setText(data.get(position).getFecha().getDate()+"/" +
+                  ""+(data.get(position).getFecha().getMonth()+1)+"/" +
+                  ""+(data.get(position).getFecha().getYear()+1900));
 
         return convertView;
     }

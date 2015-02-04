@@ -8,13 +8,15 @@
     <ImageView
         android:id="@+id/item_img"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:src="@drawable/ic_launcher"/>
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/separacion_a_imagen"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_weight="10"
+        android:gravity="center|left">
 
         <TextView
             android:id="@+id/item_title"
@@ -22,18 +24,39 @@
             android:layout_height="wrap_content"
             android:text="Title"/>
         <TextView
-            android:id="@+id/item_lugar_fecha"
+            android:id="@+id/item_lugar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lugar+Fecha"/>
+            android:text="Lugar"/>
+        <TextView
+            android:id="@+id/item_fecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha"/>
 
     </LinearLayout>
 
+
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_weight="0.1"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:src="@drawable/ic_arrow"/>
+        android:src="@drawable/ic_arrow"
+        android:gravity="center|right"/>
+
 
 
 </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
