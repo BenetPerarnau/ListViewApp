@@ -3,6 +3,7 @@ package com.example.benet.listviewapp.activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -33,7 +34,7 @@ public class DetailActivity extends ActionBarActivity {
         title.setText(object.getTitulo());
         desc.setText(object.getDesc());
         lugar.setText(object.getLugar());
-        fecha.setText(object.getFecha()+"");
+        fecha.setText(object.getFecha().getDate()+"/"+(object.getFecha().getMonth()+1)+"/"+(object.getFecha().getYear()+1900));
     }
 
 
@@ -51,13 +52,10 @@ public class DetailActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()){
             case R.id.action_settings:
-                Toast.makeText(this, this.getResources().getString(R.string.action_settings), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, item.getTitle().toString(), Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_help:
-                Toast.makeText(this,this.getResources().getString(R.string.action_help),Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.actions_plus:
-                Toast.makeText(this,this.getResources().getString(R.string.action_plus),Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,item.getTitle().toString(),Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

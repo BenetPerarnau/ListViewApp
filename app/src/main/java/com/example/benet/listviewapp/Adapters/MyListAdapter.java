@@ -68,4 +68,9 @@ Se llama a este método cada vez que se necesita mostrar un item de la lista en 
 
         return convertView;
     }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+    }
 }

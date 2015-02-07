@@ -17,25 +17,45 @@
         android:src="@drawable/ic_launcher"
         android:layout_gravity="center"/>
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/negro"
+        android:text="@string/txtTitle"/>
+    <TextView
         android:id="@+id/txtTitulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Titulo"/>
+        android:text=""/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/negro"
+        android:text="@string/txtDesc"/>
     <TextView
         android:id="@+id/txtDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Descripción"/>
+        android:text=""/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/negro"
+        android:text="@string/txtLugar"/>
     <TextView
         android:id="@+id/txtLugar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Lugar"/>
+        android:text=""/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/negro"
+        android:text="@string/txtFecha"/>
     <TextView
         android:id="@+id/txtFecha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Fecha"/>
+        android:text=""/>
 
 
 

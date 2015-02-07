@@ -61,5 +61,9 @@
     </string-array>
 
     <string name="title_activity_detail_activity2">DetailActivity</string>
+    <string name="txtTitle">Título:</string>
+    <string name="txtDesc">Descripción:</string>
+    <string name="txtLugar">Lugar:</string>
+    <string name="txtFecha">Fecha:</string>
 
 </resources>

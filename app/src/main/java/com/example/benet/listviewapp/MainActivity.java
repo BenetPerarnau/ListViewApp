@@ -33,6 +33,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     private List<Contenido> data;
     public static String sendItem="sendItem";
     private ListView listView;
+    private  MyListAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +42,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         createDateModel();
 
         listView=(ListView)findViewById(R.id.listView);
-        MyListAdapter adapter=new MyListAdapter(this, data, R.layout.list_item);
+        adapter=new MyListAdapter(this, data, R.layout.list_item);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(this);
@@ -54,8 +55,9 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
     public void createDateModel(){
         data=new ArrayList<Contenido>();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date convertedDate = new Date();
+        Contenido a;
         String [] titles=this.getResources().getStringArray(R.array.listaTitulos);
         String [] locates=this.getResources().getStringArray(R.array.LugarTitulos);
         String [] fechas=this.getResources().getStringArray(R.array.fechas);
@@ -67,11 +69,19 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            Contenido a=new Contenido(titles[i],
-                                      desc[i],
-                                      locates[i],
-                                      convertedDate,
-                                      R.drawable.ic_launcher);
+            if((i+1)%2==0) {
+                 a = new Contenido(titles[i],
+                        desc[i],
+                        locates[i],
+                        convertedDate,
+                        R.drawable.ic_item1_img);
+            }else{
+                 a = new Contenido(titles[i],
+                        desc[i],
+                        locates[i],
+                        convertedDate,
+                        R.drawable.ic_item2_img);
+            }
             data.add(a);
         }
 
@@ -91,13 +101,13 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()){
             case R.id.action_settings:
-                Toast.makeText(this,this.getResources().getString(R.string.action_settings),Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,item.getTitle().toString(),Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_help:
-                Toast.makeText(this,this.getResources().getString(R.string.action_help),Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,item.getTitle().toString(),Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.actions_plus:
-                Toast.makeText(this,this.getResources().getString(R.string.action_plus),Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,item.getTitle().toString(),Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -113,11 +123,11 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             intent.putExtra(sendItem,data.get(position));
             startActivity(intent);
     }
-
+    private Contenido itemSelected;
     @Override
     public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-        Contenido item=(Contenido)listView.getItemAtPosition(position);
-        mode.setTitle(item.getTitulo());
+        itemSelected=(Contenido)listView.getItemAtPosition(position);
+        mode.setTitle(itemSelected.getTitulo());
     }
 
     @Override
@@ -142,6 +152,9 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             case R.id.action_delete:
                 Toast.makeText(this,item.getTitle().toString()+" "+mode.getTitle(), Toast.LENGTH_SHORT).show();
                 mode.finish();
+                data.remove(itemSelected);
+                adapter.notifyDataSetChanged();
+                listView.refreshDrawableState();
                 return true;
             default:
                 return false;
