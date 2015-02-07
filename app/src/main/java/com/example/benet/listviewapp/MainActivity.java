@@ -62,6 +62,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         String [] locates=this.getResources().getStringArray(R.array.LugarTitulos);
         String [] fechas=this.getResources().getStringArray(R.array.fechas);
         String [] desc=this.getResources().getStringArray(R.array.descripciones);
+        String [] img=this.getResources().getStringArray(R.array.img);
+
         for(int i=0; i<10; i++){
             try {
                 convertedDate = dateFormat.parse(fechas[i]);
@@ -69,19 +71,12 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            if((i+1)%2==0) {
                  a = new Contenido(titles[i],
                         desc[i],
                         locates[i],
                         convertedDate,
-                        R.drawable.ic_item1_img);
-            }else{
-                 a = new Contenido(titles[i],
-                        desc[i],
-                        locates[i],
-                        convertedDate,
-                        R.drawable.ic_item2_img);
-            }
+                        getResources().getIdentifier(img[i], "drawable", getPackageName()));
+
             data.add(a);
         }
 

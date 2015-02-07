@@ -59,6 +59,18 @@
         <item>01/09/2015</item>
         <item>01/10/2015</item>
     </string-array>
+    <string-array name="img">
+        <item>ic_item1_img</item>
+        <item>ic_item2_img</item>
+        <item>ic_item3_img</item>
+        <item>ic_item4_img</item>
+        <item>ic_item5_img</item>
+        <item>ic_item1_img</item>
+        <item>ic_item2_img</item>
+        <item>ic_item3_img</item>
+        <item>ic_item4_img</item>
+        <item>ic_item5_img</item>
+    </string-array>
 
     <string name="title_activity_detail_activity2">DetailActivity</string>
     <string name="txtTitle">Título:</string>
